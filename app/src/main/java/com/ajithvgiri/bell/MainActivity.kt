@@ -9,7 +9,7 @@ import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import com.ajithvgiri.bell.databinding.ActivityMainBinding
 import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -18,19 +18,22 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         private const val SHAKE_THRESHOLD = 200
         private const val SHAKE_THRESHOLD_GRAVITY = 2.7f
     }
-    lateinit var sensorManager: SensorManager
-    lateinit var accelerometer: Sensor
+
+    var sensorManager: SensorManager? = null
+    var accelerometer: Sensor? = null
     lateinit var soundPool:SoundPool
     private var soundID = 0
     private var mShakeTimestamp: Long = 0
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
+        accelerometer = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        sensorManager?.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
 
 
         soundPool = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -43,12 +46,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onPause() {
         super.onPause()
-        sensorManager.unregisterListener(this, accelerometer)
+        sensorManager?.unregisterListener(this, accelerometer)
     }
 
     override fun onResume() {
         super.onResume()
-        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
+        sensorManager?.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -77,7 +80,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     private fun playSound(){
-        animation_view.playAnimation()
+        binding.animationView.playAnimation()
         soundPool.play(soundID,1F, 1F, 1, 0, 1F)
     }
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1008810476561",
+    "project_id": "the-big-bang-bell",
+    "storage_bucket": "the-big-bang-bell.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008810476561:android:5c4dc67bd240d02ffb9db0",
+        "android_client_info": {
+          "package_name": "com.ajithvgiri.bell"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrcqB62Q7OtOmu0lbeIi0MVPHTFaYOUSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
